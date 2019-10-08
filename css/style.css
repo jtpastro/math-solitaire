@@ -252,7 +252,7 @@ body {
 } 
 .card .spade .suit::before { content: '■' }
 .card .heart .suit::before { content: '▲' }
-.card .diamond .suit::before { content: '⬤' }
+.card .diamond .suit::before { content: '⚫' }
 .card .club .suit::before { content: '★' }
 .card .corner {
    line-height: 1;
