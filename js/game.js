@@ -9,7 +9,8 @@
 
    // build suits
    var sequenceLength = 10;
-   var factor = Math.ceil(Math.random() * 3);
+   var factor = parse_query_string(window.location.search.substring(1)).factor;
+   factor = factor === undefined ? 1 : parseInt(factor);
    var sequence = buildSequence(sequenceLength,factor);
    
    var suits = [];
@@ -102,6 +103,28 @@
   
 
 // ### FUNCTIONS ###
+
+function parse_query_string(query) {
+  var vars = query.split("&");
+  var query_string = {};
+  for (var i = 0; i < vars.length; i++) {
+    var pair = vars[i].split("=");
+    var key = decodeURIComponent(pair[0]);
+    var value = decodeURIComponent(pair[1]);
+    // If first entry with this name
+    if (typeof query_string[key] === "undefined") {
+      query_string[key] = decodeURIComponent(value);
+      // If second entry with this name
+    } else if (typeof query_string[key] === "string") {
+      var arr = [query_string[key], decodeURIComponent(value)];
+      query_string[key] = arr;
+      // If third or later entry with this name
+    } else {
+      query_string[key].push(decodeURIComponent(value));
+    }
+  }
+  return query_string;
+}
 
    // revalue card ranks
    function revalueRanks(){
