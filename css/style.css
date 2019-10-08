@@ -556,7 +556,7 @@ body {
    }
    .fnd .pile.spades::before { content: '■' }
    .fnd .pile.hearts::before { content: '▲' }
-   .fnd .pile.diamonds::before { content: '⬤' }
+   .fnd .pile.diamonds::before { content: '●' }
    .fnd .pile.clubs::before { content: '★' }
 
 /* tableau */
