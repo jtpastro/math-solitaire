@@ -11,7 +11,25 @@
    var sequenceLength = 10;
    var factor = parse_query_string(window.location.search.substring(1)).factor;
    factor = factor === undefined ? 1 : parseInt(factor);
-   var sequence = buildSequence(sequenceLength,factor);
+   var sequenceType = parse_query_string(window.location.search.substring(1)).sequence;
+   switch(sequenceType){
+      case 'triangular':
+         var sequence = buildTriangularSequence(sequenceLength,factor);
+         break;
+      case 'power':
+         var sequence = buildPowerSequence(sequenceLength,factor <= 1 ? 2 : factor);
+         break;
+      case 'multiply':
+         var sequence = buildMultiplySequence(sequenceLength,factor <= 1 ? 2 : factor);
+         break;
+      case 'squared':
+            var sequence = buildSquaredSequence(sequenceLength,factor);
+            break;
+      case 'fibonacci':
+      default:
+         var sequence = buildFibonacciSequence(sequenceLength,factor);
+   }
+
    
    var suits = [];
    suits['spades'] = buildSuit(sequence, 'spade');
@@ -149,10 +167,42 @@ function parse_query_string(query) {
       }
 
    // build sequence
-      function buildSequence(sequenceLength, factor){
+      function buildFibonacciSequence(sequenceLength, factor){
          var sequence = [factor, 2*factor];
          for(var i=2;i<sequenceLength;i++){
             sequence.push(sequence[i-2]+sequence[i-1]);
+         }
+         return sequence;
+      }
+
+      function buildTriangularSequence(sequenceLength, factor){
+         var sequence = [];
+         for(var i=0;i<sequenceLength;i++){
+            sequence.push(factor*(i+1)*(i+2)/2);
+         }
+         return sequence;
+      }
+
+      function buildPowerSequence(sequenceLength, factor){
+         var sequence = [];
+         for(var i=0;i<sequenceLength;i++){
+            sequence.push(Math.pow(factor, i));
+         }
+         return sequence;
+      }
+
+      function buildMultiplySequence(sequenceLength, factor){
+         var sequence = [];
+         for(var i=0;i<sequenceLength;i++){
+            sequence.push((i+1)*factor);
+         }
+         return sequence;
+      }
+
+      function buildSquaredSequence(sequenceLength, factor){
+         var sequence = [];
+         for(var i=0;i<sequenceLength;i++){
+            sequence.push(Math.pow((i+1), 2)*factor);
          }
          return sequence;
       }
